@@ -1,5 +1,6 @@
 import { deleteExpense, updateExpense } from "../services/expAPI";
 import { useState, useEffect } from "react";
+import { MdEdit, MdDelete, MdOutlineDownloadDone } from "react-icons/md";
 
 export default function ExpenseCard({ expense, fetchExpenses }) {
 
@@ -43,7 +44,7 @@ export default function ExpenseCard({ expense, fetchExpenses }) {
 
 
      if (!expense) {
-        return <p></p>
+        return <p className="text-white">not responding...</p>
     }
 
     return (
@@ -66,7 +67,7 @@ export default function ExpenseCard({ expense, fetchExpenses }) {
                             <option value="Others">Others</option>
                         </select>
 
-                        <button className="border border-blue-500/30 rounded-xl p-2 mr-2 ml-10  bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:bg-blue-500 px-5 uppercase hover:text-gray-200" onClick={handleEdit}>Save</button>
+                        <button className="border text-xl border-blue-500/30 rounded-full p-2 mr-2 ml-10  bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:bg-blue-500/20 px-5 uppercase hover:text-green-400" onClick={handleEdit}><MdOutlineDownloadDone/></button>
                     </div>
                     </div>
                 ) : (
@@ -77,9 +78,9 @@ export default function ExpenseCard({ expense, fetchExpenses }) {
                         <h2 className="mr-5">{expense.category}</h2>
 
                         <div>
-                            <button className="border border-blue-500/30 rounded-xl p-2 mr-2 ml-10  bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:text-gray-200 hover:bg-blue-500/20" onClick={() => setIsEditing(true)}>Edit</button>
+                            <button className="border border-blue-500/30 rounded-full p-2 mr-2 ml-10  bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:text-yellow-400 hover:bg-blue-500/20" onClick={() => setIsEditing(true)}><MdEdit/></button>
 
-                            <button className="border border-blue-500/30 rounded-xl p-2 mr-2 bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:text-gray-200 hover:bg-blue-500/20" onClick={handleDelete}>Delete</button>
+                            <button className="border border-blue-500/30 rounded-full p-2 mr-2 bg-blue-500/10 cursor-pointer hover:border-blue-500/50 hover:text-red-400 hover:bg-blue-500/20" onClick={handleDelete}><MdDelete/></button>
                         </div>
                     </div>
                     </div>

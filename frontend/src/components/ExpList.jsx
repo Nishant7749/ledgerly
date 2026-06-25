@@ -1,22 +1,10 @@
 import { useState, useEffect } from 'react'
-import { getExpenses } from '../services/expAPI';
 import ExpenseCard from './ExpCard';
 
-export default function ExpenseList() {
-    const [expenses, setExpenses] = useState([]);
+export default function ExpenseList({expenses, fetchExpenses}) {
+    
 
-    const fetchExpenses = async () => {
-        try {
-            const res = await getExpenses();
-            setExpenses(res.data.data);
-        } catch (err) {
-            console.error("Failed to fetch expenses:", err);
-        }
-    };
-
-    useEffect(() => {
-        fetchExpenses();
-    }, []);
+   
 
     return (
         <div>

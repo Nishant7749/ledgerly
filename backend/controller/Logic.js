@@ -108,7 +108,7 @@ const deleteExpense = async(req,res)=> {
 }
 
 
-//filter
+//filtering
 const filterExpenses = async(req,res)=> {
     
     try {
@@ -116,7 +116,34 @@ const filterExpenses = async(req,res)=> {
             category: req.params.category,
         })
 
-        res.status(201).json({
+        res.status(200).json({
+            success: true,
+            count: expenses.length,
+            data: expenses
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+//searching
+const searchExpenses = async(req,res)=> {
+    
+    try {
+        const key = req.query.keyword
+
+        const expenses = await Expense.find({
+            title: {
+                $regex: key,
+                $options: "i"
+            }
+        })
+
+        res.status(200).json({
             success: true,
             count: expenses.length,
             data: expenses
@@ -131,4 +158,36 @@ const filterExpenses = async(req,res)=> {
 }
 
 
-module.exports = {createExpense, getExpenses, getExpenseById, updateExpense, deleteExpense, filterExpenses}
+const sortExpenses = async(req,res)=> {
+    
+    try {
+        let {order} = req.query
+
+        if(order === "oldest") {
+             order = 1
+        }
+        else if(order === "latest") {
+             order = -1
+        }
+        
+        const expenses = await Expense.find().sort({
+            createdAt: order
+        })
+
+        res.status(200).json({
+            success: true,
+            count: expenses.length,
+            data: expenses
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+module.exports = {createExpense, getExpenses, getExpenseById, updateExpense, deleteExpense, filterExpenses, searchExpenses, sortExpenses}

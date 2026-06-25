@@ -19,10 +19,21 @@ export const deleteExpense = async(id) => {
 }
 
 export const filterExpenses = async(category) => {
-    return await axios.get(`${api}/expenses/category/${category}`)
+    return await axios.get(`${api}/expenses/filter?category=${category}`)
+}
+
+export const searchExpenses = async(keyword) => {
+    return await axios.get(`${api}/expenses/search?keyword=${keyword}`)
+}
+
+export const sortExpenses = async(order) => {
+    return await axios.get(`${api}/expenses/sort?order=${order}`)
 }
 
 
+
+
+//auth
 export const SignUp = async(data)=> {
     const res = await axios.post( `${api}/auth/signup`,data)
     return res.data
